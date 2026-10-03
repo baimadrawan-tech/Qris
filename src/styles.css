@@ -1,0 +1,69 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@theme inline {
+  --color-background: var(--floral-white);
+  --color-foreground: var(--rich-mahogany);
+  --color-primary: var(--racing-red);
+  --color-primary-foreground: var(--floral-white);
+  --color-secondary: var(--crushed-berry);
+  --color-secondary-foreground: var(--floral-white);
+  --color-pink: var(--pastel-pink);
+  --color-ink: var(--rich-mahogany);
+  --color-paper: var(--floral-white);
+  --color-muted-foreground: var(--crushed-berry);
+  --color-border: var(--rich-mahogany);
+  --font-display: "Archivo Black", system-ui, sans-serif;
+  --font-sans: "Space Grotesk", system-ui, sans-serif;
+}
+
+:root {
+  --floral-white: #ffffff;
+  --pastel-pink: #ffcad0;
+  --racing-red: #f10222;
+  --crushed-berry: #892325;
+  --rich-mahogany: #250202;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html { scroll-behavior: smooth; overscroll-behavior: contain; }
+body { background: var(--floral-white); color: var(--rich-mahogany); font-family: var(--font-sans); }
+* { border-color: var(--rich-mahogany); }
+a, button { touch-action: manipulation; }
+:focus-visible { outline: 3px solid var(--racing-red); outline-offset: 3px; }
+
+@utility brut {
+  border: 3px solid var(--rich-mahogany);
+  border-radius: 6px;
+  box-shadow: 6px 6px 0 var(--rich-mahogany);
+}
+@utility brut-lg {
+  border: 4px solid var(--rich-mahogany);
+  border-radius: 8px;
+  box-shadow: 10px 10px 0 var(--rich-mahogany);
+}
+/* Shadow tidak dianimasikan: elemen bergerak, shadow pseudo diam */
+@utility btn {
+  position: relative;
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  border: 3px solid var(--rich-mahogany); border-radius: 6px;
+  padding: .75rem 1.25rem; font-weight: 700;
+  transition: transform 200ms var(--ease);
+  box-shadow: 4px 4px 0 var(--rich-mahogany);
+  &:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--rich-mahogany); }
+  &:active { transform: translate(4px, 4px); box-shadow: none; }
+}
+
+.reveal { opacity: 0; transform: translateY(12px); transition: opacity 500ms var(--ease), transform 500ms var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+
+.modal-enter { animation: modalIn 300ms var(--ease) both; }
+@keyframes modalIn { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .modal-enter { animation: none; }
+  * { transition: none !important; }
+}
